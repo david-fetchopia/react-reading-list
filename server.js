@@ -16,10 +16,16 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist";
-mongoose.connect(MONGODB_URI);
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://davidma:davidma123@cluster0.qdcbx.mongodb.net/activityLogDatabase?retryWrites=true&w=majority";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+  .then(app.listen(PORT, () => {
+    console.log(`🌎 ==> API server now on port ${PORT}!`);
+  }))
+  .catch((error) => { console.log(error.message) })
+
+mongoose.set('useFindAndModify', false);
 
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+// app.listen(PORT, function () {
+//   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+// });
